@@ -10,16 +10,17 @@ const getBusqueda = async (req, res = response) => {
     const regex = new RegExp( busqueda, 'i');
 
     const [usuarios,medicos,hospitales] = await Promise.all([
+            Usuario.find({ nombre: regex }),
             Medico.find({ nombre: regex }),
             Hospital.find({ nombre: regex }),
-            Usuario.find({ nombre: regex })
     ])
 
     res.json({
         ok:true,
         usuarios,
         medicos,
-        hospitales
+        hospitales,
+        msg:'Holaaa'
     });
     
 }
