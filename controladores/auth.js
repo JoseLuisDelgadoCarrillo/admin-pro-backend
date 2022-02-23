@@ -4,6 +4,7 @@ const Usuario = require("../models/usuario");
 const { generarJWT } = require("../helpers/jwt");
 const { googleVerify } = require("../helpers/google-verify");
 const { findOne } = require("../models/usuario");
+const usuario = require("../models/usuario");
 
 
 const login = async ( req,res = response)=> {
@@ -15,7 +16,7 @@ const login = async ( req,res = response)=> {
         if(!usuarioDB){
             return res.status(404).json({
                 ok: false,
-                msg: 'Email no valido'
+                msg: 'Email no valido!'
             });
         }
 
@@ -102,9 +103,13 @@ const renewToken = async (req, res = response) =>{
     //Generar TOKEN - JWT
     const token = await generarJWT(uid);
 
+    //Obtener el usuario por UID
+    const usuario = await Usuario.findById( uid );
+
     res.json({
         ok: true,
-        token
+        token,
+        usuario
 
     });
 }
