@@ -31,8 +31,8 @@ app.use('/api/login', require('./routes/auth') );
 app.use('/api/upload', require('./routes/uploads') );
 
 //Lo ultimo
-app.get('*', (res,req) => {
-    res.sendFile( path.resolve(__dirname, 'public/index.html') );
+app.get('*', (req,res) => {
+    res.sendFile( path.resolve( __dirname, 'public/index.html' ) );
 });
 
 
